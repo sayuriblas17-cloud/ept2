@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades Interactivas</title>
+    <style>
+        body { font-family: Arial; margin: 0; background: linear-gradient(135deg,#ff4fd8,#7c3aed,#06b6d4); color: white; }
+        header { position: relative; height: 70vh; display: flex; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
+        #videoFondo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+        header::after { content: ""; position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.45); z-index: -1; }
+        h1 { font-size: 60px; text-shadow: 3px 3px 10px black; }
+        header p { font-size: 24px; }
+        main { width: 90%; margin: auto; padding: 40px 0; }
+        section { background: rgba(255,255,255,0.15); padding: 30px; margin-bottom: 30px; border-radius: 20px; backdrop-filter: blur(10px); box-shadow: 0px 0px 20px rgba(0,0,0,0.3); }
+        h2 { font-size: 35px; }
+        button { background: linear-gradient(45deg,#ff0080,#7c3aed); border: none; padding: 14px 25px; border-radius: 12px; color: white; font-size: 16px; cursor: pointer; margin: 10px 5px; transition: transform 0.2s; }
+        button:hover { transform: scale(1.08); background: linear-gradient(45deg,#06b6d4,#7c3aed); }
+        input { width: 100%; padding: 15px; margin-top: 12px; border: none; border-radius: 12px; font-size: 16px; box-sizing: border-box; }
+        .palabras { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .palabra { background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; text-align: center; font-size: 25px; letter-spacing: 4px; }
+        .resultado { margin-top: 20px; font-size: 20px; font-weight: bold; }
+        footer { background:#111827; text-align: center; padding: 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- Se actualizó el nombre del archivo aquí -->
+    <video autoplay muted loop id="videoFondo">
+        <source src="campana-salud-mental.mp4" type="video/mp4">
+    </video>
+    <div>
+        <h1>Actividades Interactivas</h1>
+        <p>Falta de apoyo emocional entre jóvenes</p>
+    </div>
+</header>
+
+<main>
+    <section>
+        <h2>Test Emocional</h2>
+        <p>1. ¿Sientes que las personas te escuchan realmente?</p>
+        <button onclick="sumar(2)">Sí</button>
+        <button onclick="sumar(1)">A veces</button>
+        <button onclick="sumar(0)">No</button>
+
+        <p>2. ¿Te cuesta expresar cómo te sientes?</p>
+        <button onclick="sumar(0)">No</button>
+        <button onclick="sumar(1)">Un poco</button>
+        <button onclick="sumar(2)">Mucho</button>
+
+        <p>3. ¿Te sientes apoyado emocionalmente?</p>
+        <button onclick="sumar(2)">Sí</button>
+        <button onclick="sumar(1)">A veces</button>
+        <button onclick="sumar(0)">Nunca</button>
+        <br><br>
+        <button onclick="resultadoTest()">Ver Resultado</button>
+        <div class="resultado" id="contenedorResultadoTest"></div>
+    </section>
+
+    <section>
+        <h2>Quiz Interactivo</h2>
+        <p>¿Qué acción ayuda emocionalmente a un amigo?</p>
+        <button onclick="correcto()">Escucharlo</button>
+        <button onclick="incorrecto()">Ignorarlo</button>
+        <button onclick="incorrecto()">Burlarse</button>
+        <button onclick="incorrecto()">Alejarse</button>
+    </section>
+
+    <section>
+        <h2>Palabras Desordenadas</h2>
+        <p>Ordena correctamente las palabras.</p>
+        <div class="palabras">
+            <div class="palabra">AÍTPMEA</div>
+            <div class="palabra">COYAPO</div>
+            <div class="palabra">CAUHSCRE</div>
+            <div class="palabra">DTAIMAS</div>
+        </div>
+        <input type="text" id="r1" placeholder="Palabra 1">
+        <input type="text" id="r2" placeholder="Palabra 2">
+        <input type="text" id="r3" placeholder="Palabra 3">
+        <input type="text" id="r4" placeholder="Palabra 4">
+        <button onclick="verificarPalabras()">Verificar</button>
+        <div class="resultado" id="resultadoPalabras"></div>
+    </section>
+
+    <section>
+        <h2>Juego de Decisiones</h2>
+        <p>Tu amigo publica un mensaje triste en redes sociales. ¿Qué harías?</p>
+        <button onclick="buena()">Hablar con él</button>
+        <button onclick="mala()">Ignorarlo</button>
+        <button onclick="mala()">Burlarte</button>
+        <button onclick="mala()">Compartir memes ofensivos</button>
+        <div class="resultado" id="decision"></div>
+    </section>
+
+    <section>
+        <h2>¿Cómo te sientes hoy?</h2>
+        <button onclick="emocion('Está bien sentirse feliz.')">Feliz</button>
+        <button onclick="emocion('Hablar con alguien ayuda mucho.')">Triste</button>
+        <button onclick="emocion('Respira profundo y descansa.')">Estresado</button>
+        <button onclick="emocion('No estás solo, busca apoyo.')">Ansioso</button>
+        <div class="resultado" id="emocionTexto"></div>
+    </section>
+</main>
+
+<footer>
+    Página interactiva juvenil sobre apoyo emocional
+</footer>
+
+<script>
+    let puntos = 0;
+
+    function sumar(valor) {
+        puntos += valor;
+    }
+
+    function resultadoTest() {
+        let mensaje = "";
+        if (puntos >= 5) {
+            mensaje = "Tienes buena conexión emocional.";
+        } else if (puntos >= 3) {
+            mensaje = "A veces necesitas más apoyo emocional.";
+        } else {
+            mensaje = "Busca apoyo y habla con alguien de confianza.";
+        }
+        document.getElementById("contenedorResultadoTest").innerHTML = mensaje;
+    }
+
+    function correcto() { 
+        alert("Respuesta correcta"); 
+    }
+
+    function incorrecto() { 
+        alert("Respuesta incorrecta"); 
+    }
+
+    function verificarPalabras() {
+        let r1 = document.getElementById("r1").value.toLowerCase().trim();
+        let r2 = document.getElementById("r2").value.toLowerCase().trim();
+        let r3 = document.getElementById("r3").value.toLowerCase().trim();
+        let r4 = document.getElementById("r4").value.toLowerCase().trim();
+        
+        let aciertos = 0;
+        if (r1 == "empatía" || r1 == "empatia") { aciertos++; }
+        if (r2 == "apoyo") { aciertos++; }
+        if (r3 == "escuchar") { aciertos++; }
+        if (r4 == "amistad") { aciertos++; }
+        
+        document.getElementById("resultadoPalabras").innerHTML = "Tienes " + aciertos + " respuestas correctas de 4";
+    }
+
+    function buena() { 
+        document.getElementById("decision").innerHTML = "Excelente decisión. Escuchar ayuda mucho."; 
+    }
+
+    function mala() { 
+        document.getElementById("decision").innerHTML = "Esa acción puede afectar emocionalmente a la persona."; 
+    }
+
+    function emocion(texto) { 
+        document.getElementById("emocionTexto").innerHTML = texto; 
+    }
+</script>
+
+</body>
+</html>

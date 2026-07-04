@@ -1,0 +1,393 @@
+<html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Actividades Interactivas</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:linear-gradient(135deg,#ff4fd8,#7c3aed,#06b6d4);
+color:white;
+}
+
+header{
+position:relative;
+height:70vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+overflow:hidden;
+}
+
+#videoFondo{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
+}
+
+header::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+z-index:-1;
+}
+
+h1{
+font-size:60px;
+text-shadow:3px 3px 10px black;
+}
+
+header p{
+font-size:24px;
+}
+
+main{
+width:90%;
+margin:auto;
+padding:40px 0;
+}
+
+section{
+background:rgba(255,255,255,0.15);
+padding:30px;
+margin-bottom:30px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+box-shadow:0 0 20px rgba(0,0,0,.3);
+}
+
+h2{
+font-size:35px;
+}
+
+button{
+background:linear-gradient(45deg,#ff0080,#7c3aed);
+border:none;
+padding:14px 25px;
+border-radius:12px;
+color:white;
+font-size:16px;
+cursor:pointer;
+margin:10px 5px;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+background:linear-gradient(45deg,#06b6d4,#7c3aed);
+}
+
+input{
+width:100%;
+padding:15px;
+margin-top:12px;
+border:none;
+border-radius:12px;
+font-size:16px;
+}
+
+.palabras{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+margin-top:20px;
+}
+
+.palabra{
+background:rgba(255,255,255,.2);
+padding:20px;
+border-radius:15px;
+text-align:center;
+font-size:25px;
+letter-spacing:4px;
+}
+
+.resultado{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+}
+
+footer{
+background:#111827;
+text-align:center;
+padding:20px;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<video autoplay muted loop id="videoFondo">
+<source src="Campaña de Salud Mental.mp4" type="video/mp4">
+</video>
+
+<div>
+
+<h1>Actividades Interactivas</h1>
+
+<p>Fortaleciendo el bienestar emocional entre los jóvenes</p>
+
+</div>
+
+</header>
+
+<main>
+
+<section>
+
+<h2>Test de Bienestar Emocional</h2>
+
+<p>1. ¿Dedicas tiempo para cuidar de tu bienestar emocional?</p>
+
+<button onclick="sumar(2)">Siempre</button>
+<button onclick="sumar(1)">A veces</button>
+<button onclick="sumar(0)">Nunca</button>
+
+<p>2. ¿Hablas con alguien cuando tienes un problema?</p>
+
+<button onclick="sumar(2)">Sí</button>
+<button onclick="sumar(1)">Solo algunas veces</button>
+<button onclick="sumar(0)">No</button>
+
+<p>3. ¿Crees que pedir ayuda demuestra fortaleza?</p>
+
+<button onclick="sumar(2)">Sí</button>
+<button onclick="sumar(1)">No estoy seguro</button>
+<button onclick="sumar(0)">No</button>
+
+<br>
+
+<button onclick="resultadoTest()">
+Ver Resultado
+</button>
+
+<div class="resultado" id="resultadoTest"></div>
+
+</section>
+
+<section>
+
+<h2>Quiz Interactivo</h2>
+
+<p>¿Cuál es una forma saludable de afrontar el estrés?</p>
+
+<button onclick="correcto()">
+Hablar con alguien de confianza
+</button>
+
+<button onclick="incorrecto()">
+Guardar todo para uno mismo
+</button>
+
+<button onclick="incorrecto()">
+Responder con agresividad
+</button>
+
+<button onclick="incorrecto()">
+Alejarse de todos
+</button>
+
+</section>
+
+<section>
+
+<h2>Palabras Desordenadas</h2>
+
+<p>Escribe correctamente cada palabra.</p>
+
+<div class="palabras">
+
+<div class="palabra">FACONIZNA</div>
+
+<div class="palabra">REOTPSE</div>
+
+<div class="palabra">NACÓICUMNOI</div>
+
+<div class="palabra">ESABTIREN</div>
+
+</div>
+
+<input type="text" id="r1" placeholder="Palabra 1">
+
+<input type="text" id="r2" placeholder="Palabra 2">
+
+<input type="text" id="r3" placeholder="Palabra 3">
+
+<input type="text" id="r4" placeholder="Palabra 4">
+
+<button onclick="verificarPalabras()">
+Verificar
+</button>
+
+<div class="resultado" id="resultadoPalabras"></div>
+
+</section>
+
+<section>
+
+<h2>Juego de Decisiones</h2>
+
+<p>
+Observas que un compañero está triste y permanece aislado durante varios días.
+¿Qué harías?
+</p>
+
+<button onclick="buena()">
+Acercarme y preguntarle cómo está
+</button>
+
+<button onclick="mala()">
+Ignorarlo
+</button>
+
+<button onclick="mala()">
+Reírme con otros compañeros
+</button>
+
+<button onclick="mala()">
+Difundir comentarios negativos
+</button>
+
+<div class="resultado" id="decision"></div>
+
+</section>
+
+<section>
+
+<h2>¿Qué necesitas hoy?</h2>
+
+<button onclick="emocion('Celebra tus logros y comparte tu alegría.')">
+Motivación
+</button>
+
+<button onclick="emocion('Dormir y descansar también es cuidar tu salud.')">
+Descanso
+</button>
+
+<button onclick="emocion('Hablar con alguien de confianza siempre ayuda.')">
+Apoyo
+</button>
+
+<button onclick="emocion('Respira profundamente y avanza paso a paso.')">
+Calma
+</button>
+
+<div class="resultado" id="emocion"></div>
+
+</section>
+
+</main>
+
+<footer>
+
+Página interactiva sobre bienestar emocional y apoyo entre jóvenes.
+
+</footer>
+
+<script>
+
+let puntos=0;
+
+function sumar(valor){
+puntos+=valor;
+}
+
+function resultadoTest(){
+
+let mensaje="";
+
+if(puntos>=5){
+mensaje="Excelente. Mantienes hábitos que favorecen tu bienestar emocional.";
+}
+
+else if(puntos>=3){
+mensaje="Vas por buen camino, aunque puedes fortalecer tu red de apoyo.";
+}
+
+else{
+mensaje="Recuerda que hablar con alguien de confianza puede ayudarte a sentirte mejor.";
+}
+
+document.getElementById("resultadoTest").innerHTML=mensaje;
+
+}
+
+function correcto(){
+
+alert("¡Correcto! Buscar apoyo es una estrategia saludable.");
+
+}
+
+function incorrecto(){
+
+alert("Respuesta incorrecta. Existen opciones mucho más saludables.");
+
+}
+
+function verificarPalabras(){
+
+let r1=document.getElementById("r1").value.toLowerCase();
+
+let r2=document.getElementById("r2").value.toLowerCase();
+
+let r3=document.getElementById("r3").value.toLowerCase();
+
+let r4=document.getElementById("r4").value.toLowerCase();
+
+let puntos=0;
+
+if(r1=="confianza"){puntos++;}
+
+if(r2=="respeto"){puntos++;}
+
+if(r3=="comunicación"||r3=="comunicacion"){puntos++;}
+
+if(r4=="bienestar"){puntos++;}
+
+document.getElementById("resultadoPalabras").innerHTML="Obtuviste "+puntos+" respuestas correctas de 4.";
+
+}
+
+function buena(){
+
+document.getElementById("decision").innerHTML="Excelente decisión. Escuchar y acompañar puede hacer una gran diferencia.";
+
+}
+
+function mala(){
+
+document.getElementById("decision").innerHTML="Esa acción puede afectar el bienestar emocional de la otra persona.";
+
+}
+
+function emocion(texto){
+
+document.getElementById("emocion").innerHTML=texto;
+
+}
+
+</script>
+
+</body>
+
+</html>
